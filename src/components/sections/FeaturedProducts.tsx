@@ -27,9 +27,9 @@ const FeaturedProducts = () => {
             Featured Rentals
           </div>
           
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground">
+          <h2 className="text-4xl md:text-6xl font-display font-bold text-foreground">
             Premium Camera Gear
-            <span className="block text-primary">Ready to Rent</span>
+            <span className="block text-secondary">Ready to Rent</span>
           </h2>
           
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -43,10 +43,10 @@ const FeaturedProducts = () => {
           {["All Categories", "DSLR Cameras", "Mirrorless", "Lenses", "Lighting", "Audio"].map((category, index) => (
             <button
               key={category}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105 ${
+              className={`px-6 py-3 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105 ${
                 index === 0 
-                  ? "bg-gradient-primary text-white shadow-md" 
-                  : "bg-white/80 text-foreground hover:bg-white shadow-sm border"
+                  ? "bg-gradient-secondary text-white shadow-md" 
+                  : "bg-white/80 text-foreground hover:bg-white shadow-sm border border-border"
               }`}
             >
               {category}
@@ -71,7 +71,7 @@ const FeaturedProducts = () => {
         <div className="text-center animate-fade-in">
           <Button 
             size="lg" 
-            className="bg-gradient-primary hover:bg-primary-hover shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
+            className="bg-gradient-secondary hover:bg-secondary-hover shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 font-semibold"
           >
             View All Products
             <ArrowRight className="h-5 w-5 ml-2" />

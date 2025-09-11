@@ -19,11 +19,11 @@ const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group">
-            <div className="p-2 rounded-lg bg-gradient-primary transition-all duration-300 group-hover:shadow-glow group-hover:scale-105">
-              <Camera className="h-6 w-6 text-white" />
+          <Link to="/" className="flex items-center space-x-3 group">
+            <div className="p-2.5 rounded-xl bg-gradient-primary transition-all duration-300 group-hover:shadow-glow group-hover:scale-105">
+              <Camera className="h-7 w-7 text-white" />
             </div>
-            <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+            <span className="text-2xl font-display font-bold text-primary">
               RentHub
             </span>
           </Link>
@@ -47,7 +47,7 @@ const Navigation = () => {
               <User className="h-4 w-4 mr-2" />
               Sign In
             </Button>
-            <Button size="sm" className="bg-gradient-primary hover:bg-primary-hover shadow-md hover:shadow-lg transition-all duration-200">
+            <Button size="sm" className="bg-gradient-secondary hover:bg-secondary-hover shadow-md hover:shadow-lg transition-all duration-200 font-medium">
               <Store className="h-4 w-4 mr-2" />
               List Your Items
             </Button>
@@ -89,7 +89,7 @@ const Navigation = () => {
                 <User className="h-4 w-4 mr-2" />
                 Sign In
               </Button>
-              <Button className="w-full bg-gradient-primary hover:bg-primary-hover">
+              <Button className="w-full bg-gradient-secondary hover:bg-secondary-hover font-medium">
                 <Store className="h-4 w-4 mr-2" />
                 List Your Items
               </Button>

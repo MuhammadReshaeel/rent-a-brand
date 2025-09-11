@@ -13,22 +13,22 @@ const HowItWorks = () => {
       icon: Calendar,
       title: "Book Instantly",
       description: "Select your rental dates, choose pickup or delivery, and confirm your booking in seconds.",
-      color: "text-accent",
-      bg: "bg-accent/10"
+      color: "text-secondary",
+      bg: "bg-secondary/10"
     },
     {
       icon: CreditCard,
       title: "Secure Payment",
       description: "Pay safely with our secure payment system. Full insurance coverage for your peace of mind.",
-      color: "text-secondary",
-      bg: "bg-secondary/10"
+      color: "text-accent",
+      bg: "bg-accent/10"
     },
     {
       icon: Camera,
       title: "Create Magic",
       description: "Get your equipment and start creating amazing content. Return when you're done - it's that simple!",
-      color: "text-primary",
-      bg: "bg-primary/10"
+      color: "text-success",
+      bg: "bg-success/10"
     }
   ];
 
@@ -41,9 +41,9 @@ const HowItWorks = () => {
             How It Works
           </div>
           
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground">
+          <h2 className="text-4xl md:text-6xl font-display font-bold text-foreground">
             Rent Equipment in
-            <span className="block text-accent">4 Simple Steps</span>
+            <span className="block text-secondary">4 Simple Steps</span>
           </h2>
           
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -100,18 +100,18 @@ const HowItWorks = () => {
         <div className="mt-16 bg-gradient-card rounded-2xl p-8 border border-white/50 shadow-md animate-fade-in">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="space-y-2">
-              <div className="text-2xl font-bold text-primary">5 Minutes</div>
-              <div className="text-sm text-muted-foreground">Average Booking Time</div>
+              <div className="text-3xl font-bold text-primary font-display">5 Minutes</div>
+              <div className="text-sm text-muted-foreground font-medium">Average Booking Time</div>
             </div>
             
             <div className="space-y-2">
-              <div className="text-2xl font-bold text-accent">₨500</div>
-              <div className="text-sm text-muted-foreground">Minimum Security Deposit</div>
+              <div className="text-3xl font-bold text-secondary font-display">₨500</div>
+              <div className="text-sm text-muted-foreground font-medium">Minimum Security Deposit</div>
             </div>
             
             <div className="space-y-2">
-              <div className="text-2xl font-bold text-secondary">24/7</div>
-              <div className="text-sm text-muted-foreground">Customer Support</div>
+              <div className="text-3xl font-bold text-accent font-display">24/7</div>
+              <div className="text-sm text-muted-foreground font-medium">Customer Support</div>
             </div>
           </div>
         </div>

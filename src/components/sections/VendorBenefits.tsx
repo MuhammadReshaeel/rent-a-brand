@@ -51,9 +51,9 @@ const VendorBenefits = () => {
             For Vendors & Businesses
           </div>
           
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground">
+          <h2 className="text-4xl md:text-6xl font-display font-bold text-foreground">
             Turn Your Equipment Into
-            <span className="block bg-gradient-secondary bg-clip-text text-transparent">
+            <span className="block text-secondary">
               Passive Income
             </span>
           </h2>
@@ -88,22 +88,21 @@ const VendorBenefits = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="bg-gradient-primary rounded-3xl p-8 md:p-12 text-center text-white shadow-xl animate-slide-up">
+        <div className="bg-gradient-primary rounded-3xl p-8 md:p-12 text-center text-white shadow-elegant animate-slide-up">
           <div className="max-w-3xl mx-auto space-y-6">
-            <h3 className="text-2xl md:text-4xl font-bold">
+            <h3 className="text-3xl md:text-5xl font-display font-bold">
               Ready to Start Your Rental Business?
             </h3>
             
-            <p className="text-lg text-white/90">
+            <p className="text-xl text-white/90 font-light leading-relaxed">
               Join over 150+ successful vendors across Pakistan. Set up your branded rental platform in minutes 
               and start earning from your equipment today.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
               <Button 
                 size="lg" 
-                variant="secondary"
-                className="bg-white text-primary hover:bg-white/90 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
+                className="bg-secondary hover:bg-secondary-hover text-white shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 font-semibold"
               >
                 Start Free Trial
               </Button>
@@ -111,7 +110,7 @@ const VendorBenefits = () => {
               <Button 
                 size="lg" 
                 variant="outline"
-                className="border-white/30 text-white hover:bg-white/10 shadow-lg transition-all duration-200 hover:scale-105"
+                className="border-white/30 text-white hover:bg-white/10 shadow-lg transition-all duration-200 hover:scale-105 font-medium"
               >
                 Schedule Demo
               </Button>

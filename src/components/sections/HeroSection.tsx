@@ -22,15 +22,17 @@ const HeroSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="text-center lg:text-left space-y-8 animate-slide-up">
-            <div className="space-y-4">
-              <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+            <div className="space-y-6">
+              <h1 className="text-5xl md:text-7xl font-display font-bold text-white leading-tight">
                 Rent Premium
-                <span className="block bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+                <span className="block text-secondary font-display">
                   Camera Gear
                 </span>
-                Near You
+                <span className="text-4xl md:text-5xl font-sans font-medium text-white/90">
+                  Near You
+                </span>
               </h1>
-              <p className="text-xl text-white/80 max-w-2xl">
+              <p className="text-xl md:text-2xl text-white/80 max-w-2xl font-light leading-relaxed">
                 Access professional photography equipment from trusted local vendors. 
                 Perfect gear for your creative projects, events, and professional shoots.
               </p>
@@ -81,18 +83,18 @@ const HeroSection = () => {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 pt-4">
+            <div className="grid grid-cols-3 gap-8 pt-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-white">2,500+</div>
-                <div className="text-white/60 text-sm">Available Items</div>
+                <div className="text-3xl font-bold text-white font-display">2,500+</div>
+                <div className="text-white/70 text-sm font-medium">Available Items</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-white">150+</div>
-                <div className="text-white/60 text-sm">Trusted Vendors</div>
+                <div className="text-3xl font-bold text-white font-display">150+</div>
+                <div className="text-white/70 text-sm font-medium">Trusted Vendors</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-white">50+ Cities</div>
-                <div className="text-white/60 text-sm">Across Pakistan</div>
+                <div className="text-3xl font-bold text-white font-display">50+ Cities</div>
+                <div className="text-white/70 text-sm font-medium">Across Pakistan</div>
               </div>
             </div>
           </div>
@@ -116,8 +118,8 @@ const HeroSection = () => {
               </div>
             </div>
             
-            <div className="absolute -bottom-4 -left-4 bg-secondary/90 backdrop-blur-sm rounded-xl p-4 shadow-lg text-white animate-float" style={{ animationDelay: '1s' }}>
-              <div className="text-sm font-medium">From ₨2,500/day</div>
+            <div className="absolute -bottom-4 -left-4 bg-secondary/95 backdrop-blur-sm rounded-xl p-4 shadow-lg text-white animate-float" style={{ animationDelay: '1s' }}>
+              <div className="text-sm font-semibold">From ₨2,500/day</div>
             </div>
           </div>
         </div>

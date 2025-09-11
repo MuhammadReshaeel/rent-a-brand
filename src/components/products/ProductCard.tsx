@@ -66,7 +66,7 @@ const ProductCard = ({
             variant={isAvailable ? "default" : "destructive"}
             className={cn(
               "bg-white/90 text-primary",
-              isAvailable ? "bg-accent/90 text-white" : "bg-destructive/90 text-white"
+              isAvailable ? "bg-success/90 text-white" : "bg-destructive/90 text-white"
             )}
           >
             {isAvailable ? "Available" : "Booked"}
@@ -98,25 +98,25 @@ const ProductCard = ({
         </div>
 
         {/* Pricing */}
-        <div className="space-y-2">
+        <div className="space-y-3">
           <div className="flex items-baseline space-x-2">
-            <span className="text-2xl font-bold text-primary">₨{pricePerDay.toLocaleString()}</span>
+            <span className="text-2xl font-bold text-primary font-display">₨{pricePerDay.toLocaleString()}</span>
             <span className="text-sm text-muted-foreground">/day</span>
           </div>
           
           {pricePerWeek && (
-            <div className="text-sm text-accent font-medium">
+            <div className="text-sm text-secondary font-semibold">
               ₨{pricePerWeek.toLocaleString()}/week (Save 15%)
             </div>
           )}
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-2 pt-2">
+        <div className="flex gap-3 pt-2">
           <Button 
             variant="outline" 
             size="sm" 
-            className="flex-1 border-primary/20 hover:border-primary hover:bg-primary/5"
+            className="flex-1 border-primary/20 hover:border-primary hover:bg-primary/5 font-medium"
           >
             <Calendar className="h-4 w-4 mr-2" />
             Quick View
@@ -124,7 +124,7 @@ const ProductCard = ({
           
           <Button 
             size="sm" 
-            className="flex-1 bg-gradient-primary hover:bg-primary-hover shadow-md hover:shadow-lg transition-all duration-200"
+            className="flex-1 bg-gradient-secondary hover:bg-secondary-hover shadow-md hover:shadow-lg transition-all duration-200 font-semibold"
             disabled={!isAvailable}
           >
             {isAvailable ? "Rent Now" : "Unavailable"}

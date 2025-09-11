@@ -36,16 +36,16 @@ const Footer = () => {
         <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-2 space-y-6">
-            <Link to="/" className="flex items-center space-x-2 group">
-              <div className="p-2 rounded-lg bg-gradient-primary transition-all duration-300 group-hover:shadow-glow group-hover:scale-105">
-                <Camera className="h-6 w-6 text-white" />
+            <Link to="/" className="flex items-center space-x-3 group">
+              <div className="p-2.5 rounded-xl bg-gradient-primary transition-all duration-300 group-hover:shadow-glow group-hover:scale-105">
+                <Camera className="h-7 w-7 text-white" />
               </div>
-              <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+              <span className="text-2xl font-display font-bold text-primary">
                 RentHub
               </span>
             </Link>
             
-            <p className="text-muted-foreground leading-relaxed max-w-sm">
+            <p className="text-muted-foreground leading-relaxed max-w-sm font-light">
               Pakistan's premier camera rental marketplace. Connecting creators with 
               professional equipment from trusted vendors nationwide.
             </p>
@@ -134,7 +134,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="py-6 border-t border-border flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <div className="text-sm text-muted-foreground">
+          <div className="text-sm text-muted-foreground font-light">
             © 2024 RentHub. All rights reserved. Made with ❤️ in Pakistan.
           </div>
           
