@@ -1,20 +1,18 @@
-import Navigation from "@/components/layout/Navigation";
-import HeroSection from "@/components/sections/HeroSection";
-import FeaturedProducts from "@/components/sections/FeaturedProducts";
-import HowItWorks from "@/components/sections/HowItWorks";
-import VendorBenefits from "@/components/sections/VendorBenefits";
-import Footer from "@/components/layout/Footer";
+import Navigation from '@/components/Navigation';
+import HeroSection from '@/components/HeroSection';
+import CreatorGallerySection from '@/components/CreatorGallerySection';
+import TestimonialSection from '@/components/TestimonialSection';
+import CallToActionSection from '@/components/CallToActionSection';
+import Footer from '@/components/Footer';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Navigation />
-      <main>
-        <HeroSection />
-        <FeaturedProducts />
-        <HowItWorks />
-        <VendorBenefits />
-      </main>
+      <HeroSection />
+      <CreatorGallerySection />
+      <TestimonialSection />
+      <CallToActionSection />
       <Footer />
     </div>
   );
