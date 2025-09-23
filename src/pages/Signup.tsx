@@ -59,8 +59,13 @@ const Signup = () => {
     } else {
       // Final step - log data and redirect
       console.log('Signup completed with data:', formData);
-      navigate('/dashboard');
+      navigate(`/c/${formData.pageUrl}`);
     }
+  };
+
+  const handleJoinAsFan = () => {
+    console.log('Joining as fan with email:', formData.email || 'No email provided');
+    navigate('/dashboard');
   };
 
   const handleBack = () => {
@@ -175,6 +180,7 @@ const Signup = () => {
             <div className="text-center mt-8">
               <Button 
                 variant="outline" 
+                onClick={handleJoinAsFan}
                 className="bg-transparent border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white px-6 py-2 rounded-full"
               >
                 Not a creator? Join as a fan
@@ -280,6 +286,7 @@ const Signup = () => {
             <div className="text-center mt-8">
               <Button 
                 variant="outline" 
+                onClick={handleJoinAsFan}
                 className="bg-transparent border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white px-6 py-2 rounded-full"
               >
                 Not a creator? Join as a fan

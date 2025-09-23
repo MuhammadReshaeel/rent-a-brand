@@ -69,9 +69,10 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Bottom section */}
+        {/* Bottom section with role switcher */}
         <div className="mt-auto p-4 border-t border-gray-800">
-          <div className="flex items-center space-x-3">
+          {/* Active Member Account */}
+          <div className="flex items-center space-x-3 mb-3 p-2 bg-gray-800 rounded-lg">
             <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
               <span className="text-white text-sm font-bold">N</span>
             </div>
@@ -79,9 +80,25 @@ export function AppSidebar() {
               <div className="text-white text-sm font-medium">Nissim Booth</div>
               <div className="text-gray-400 text-xs">Member</div>
             </div>
+            <div className="w-4 h-4 text-green-500">✓</div>
           </div>
           
-          <div className="mt-3 p-3 bg-gray-800 rounded-lg">
+          {/* Switch to Creator */}
+          <NavLink 
+            to="/c/NissimBooth" 
+            className="flex items-center space-x-3 p-2 hover:bg-gray-800 rounded-lg transition-colors mb-3"
+          >
+            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+              <span className="text-white text-sm font-bold">N</span>
+            </div>
+            <div className="flex-1">
+              <div className="text-white text-sm font-medium">Nissim Booth</div>
+              <div className="text-gray-400 text-xs">Creator</div>
+            </div>
+          </NavLink>
+          
+          {/* Become Creator CTA */}
+          <div className="p-3 bg-gray-800 rounded-lg">
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-white text-sm font-medium">Become a creator</div>
@@ -89,9 +106,11 @@ export function AppSidebar() {
               </div>
               <button className="text-gray-400 hover:text-white">×</button>
             </div>
-            <button className="w-full mt-2 bg-white text-black py-2 px-4 rounded-lg text-sm font-medium">
-              Finish my page
-            </button>
+            <NavLink to="/signup">
+              <button className="w-full mt-2 bg-white text-black py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-100">
+                Finish my page
+              </button>
+            </NavLink>
           </div>
         </div>
       </SidebarContent>
