@@ -50,14 +50,7 @@ export function MembershipModal({ open, onOpenChange, creatorName }: MembershipM
             </div>
             <span className="text-lg font-semibold">{creatorName}</span>
           </div>
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            onClick={() => onOpenChange(false)}
-            className="text-gray-400 hover:text-white"
-          >
-            <X className="w-5 h-5" />
-          </Button>
+         
         </div>
 
         <div className="p-6">

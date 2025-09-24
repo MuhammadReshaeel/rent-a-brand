@@ -50,14 +50,7 @@ export function StartBasicsModal({ open, onOpenChange, onSave }: StartBasicsModa
           <DialogTitle className="text-xl font-semibold text-center flex-1">
             Start with the basics
           </DialogTitle>
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            onClick={() => onOpenChange(false)}
-            className="text-gray-400 hover:text-white"
-          >
-            <X className="w-4 h-4" />
-          </Button>
+        
         </DialogHeader>
 
         <div className="space-y-6 pt-4">

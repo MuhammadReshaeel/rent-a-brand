@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Search, Settings, Share, MoreHorizontal, Play, Lock, Heart, MessageCircle, Eye } from 'lucide-react';
 import { MembershipModal } from '@/components/modals/MembershipModal';
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/layout/AppSidebar";
 
 // Mock creator data
 const creatorData = {
@@ -78,20 +80,6 @@ const posts = [
   }
 ];
 
-const sidebarItems = [
-  { icon: '🏠', label: 'Home', isActive: false },
-  { icon: '🔍', label: 'Explore', isActive: false },
-  { icon: '👥', label: 'Community', isActive: false },
-  { icon: '🔔', label: 'Notifications', isActive: false },
-  { icon: '⚙️', label: 'Settings', isActive: false }
-];
-
-const recentlyVisited = [
-  { name: 'Brad Evans', avatar: '🎭' },
-  { name: 'Dee Shanell', avatar: '🎬' },
-  { name: 'BlufTube', avatar: '🎮' }
-];
-
 export default function CreatorProfile() {
   const { creatorName } = useParams();
   const navigate = useNavigate();
@@ -101,320 +89,252 @@ export default function CreatorProfile() {
   const creator = creatorData[creatorName as keyof typeof creatorData] || creatorData['dee-shanell'];
 
   return (
-    <div className="min-h-screen bg-black text-white flex">
-      {/* Left Sidebar */}
-      <div className="w-64 bg-gray-900 border-r border-gray-800 flex flex-col fixed h-full">
-        {/* Logo */}
-        <div className="p-4 border-b border-gray-800">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-              <div className="w-6 h-6 bg-black rounded-full relative">
-                <div className="absolute inset-0 bg-white rounded-full" style={{
-                  clipPath: 'polygon(0% 0%, 100% 0%, 100% 70%, 70% 100%, 0% 100%)'
-                }}></div>
+    <SidebarProvider>
+      <div className="min-h-screen bg-black text-white flex">
+        <AppSidebar />
+
+        {/* Main Content */}
+        <div className="flex-1">
+          {/* Email Verification Banner */}
+          <div className="bg-gray-900 px-6 py-3 flex items-center justify-between border-b border-gray-800">
+            <span className="text-sm text-gray-300">Please verify your email address</span>
+            <Button variant="outline" size="sm" className="bg-white text-black border-white hover:bg-gray-100">
+              Verify email
+            </Button>
+          </div>
+
+          {/* Creator Header */}
+          <div className="relative">
+            {/* Cover Image */}
+            <div 
+              className="h-64 bg-gradient-to-r from-purple-900 via-blue-900 to-purple-800 relative"
+              style={{
+                backgroundImage: `url(${creator.coverImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            >
+              <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+              
+              {/* Header Actions */}
+              <div className="absolute top-4 right-4 flex items-center space-x-3">
+                <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
+                  <Share className="w-4 h-4" />
+                </Button>
+                <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
+                  <MoreHorizontal className="w-4 h-4" />
+                </Button>
               </div>
             </div>
-            <span className="font-bold text-white">Patreon</span>
-          </div>
-        </div>
 
-        {/* Navigation */}
-        <div className="flex-1 p-4">
-          <div className="space-y-2">
-            {sidebarItems.map((item, index) => (
-              <div
-                key={index}
-                className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer transition-colors ${
-                  item.isActive ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                }`}
-              >
-                <span className="text-lg">{item.icon}</span>
-                <span>{item.label}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Recently Visited */}
-          <div className="mt-8">
-            <h3 className="text-sm font-medium text-gray-400 mb-3">Recently Visited</h3>
-            <div className="space-y-2">
-              {recentlyVisited.map((item, index) => (
-                <div key={index} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-800 cursor-pointer">
-                  <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-pink-500 rounded-lg flex items-center justify-center text-white">
-                    {item.avatar}
+            {/* Creator Info */}
+            <div className="px-6 py-6">
+              <div className="flex items-start justify-between">
+                <div className="flex items-start space-x-4">
+                  <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-pink-500 rounded-2xl flex items-center justify-center text-white text-2xl font-bold -mt-10 border-4 border-black">
+                    {creator.avatar}
                   </div>
-                  <span className="text-sm text-gray-300">{item.name}</span>
+                  <div className="pt-2">
+                    <div className="flex items-center space-x-2">
+                      <h1 className="text-2xl font-bold text-white">{creator.name}</h1>
+                      {creator.isVerified && <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                        <span className="text-white text-xs">✓</span>
+                      </div>}
+                    </div>
+                    <p className="text-gray-400 mt-1">{creator.posts} posts</p>
+                  </div>
                 </div>
+                <Button 
+                  onClick={() => setShowMembershipModal(true)}
+                  className="bg-white text-black hover:bg-gray-100 px-6"
+                >
+                  Join now
+                </Button>
+              </div>
+
+              {/* Description */}
+              <div className="mt-4 max-w-3xl">
+                <p className="text-gray-300 leading-relaxed">{creator.description}</p>
+              </div>
+
+              {/* Stats */}
+              <div className="flex items-center space-x-6 mt-4">
+                <div className="text-sm">
+                  <span className="font-semibold text-white">{creator.memberCount}</span>
+                  <span className="text-gray-400 ml-1">paid members</span>
+                </div>
+                <div className="text-sm">
+                  <span className="font-semibold text-white">{creator.posts}</span>
+                  <span className="text-gray-400 ml-1">Posts</span>
+                </div>
+              </div>
+
+              {/* Become a Member Button */}
+              <div className="mt-6">
+                <Button 
+                  onClick={() => setShowMembershipModal(true)}
+                  className="bg-green-600 hover:bg-green-700 text-white px-8 py-2"
+                >
+                  Become a member
+                </Button>
+              </div>
+
+              {/* Social Links */}
+              <div className="flex items-center space-x-4 mt-4">
+                <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
+                  📷
+                </Button>
+                <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
+                  🐦
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation Tabs */}
+          <div className="border-b border-gray-800 px-6">
+            <div className="flex space-x-8">
+              {['Home', 'Posts', 'Collections', 'Chats', 'About'].map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`py-3 px-1 border-b-2 transition-colors ${
+                    activeTab === tab
+                      ? 'border-green-500 text-white'
+                      : 'border-transparent text-gray-400 hover:text-white'
+                  }`}
+                >
+                  {tab}
+                </button>
               ))}
             </div>
           </div>
-        </div>
 
-        {/* Get App Button */}
-        <div className="p-4 border-t border-gray-800">
-          <Button className="w-full bg-gray-800 text-white border border-gray-700 hover:bg-gray-700">
-            📱 Get app
-          </Button>
-        </div>
-
-        {/* User Profile */}
-        <div className="p-4 border-t border-gray-800">
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-              <span className="text-white text-sm font-bold">S</span>
-            </div>
-            <div className="flex-1">
-              <div className="text-sm font-medium text-white">Shazil</div>
-              <div className="text-xs text-gray-400">Member</div>
-            </div>
-            <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
-              <MoreHorizontal className="w-4 h-4" />
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex-1 ml-64">
-        {/* Email Verification Banner */}
-        <div className="bg-gray-900 px-6 py-3 flex items-center justify-between border-b border-gray-800">
-          <span className="text-sm text-gray-300">Please verify your email address</span>
-          <Button variant="outline" size="sm" className="bg-white text-black border-white hover:bg-gray-100">
-            Verify email
-          </Button>
-        </div>
-
-        {/* Creator Header */}
-        <div className="relative">
-          {/* Cover Image */}
-          <div 
-            className="h-64 bg-gradient-to-r from-purple-900 via-blue-900 to-purple-800 relative"
-            style={{
-              backgroundImage: `url(${creator.coverImage})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
-            }}
-          >
-            <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-            
-            {/* Header Actions */}
-            <div className="absolute top-4 right-4 flex items-center space-x-3">
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
-                <Share className="w-4 h-4" />
-              </Button>
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
-                <MoreHorizontal className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
-
-          {/* Creator Info */}
+          {/* Latest Post Section */}
           <div className="px-6 py-6">
-            <div className="flex items-start justify-between">
-              <div className="flex items-start space-x-4">
-                <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-pink-500 rounded-2xl flex items-center justify-center text-white text-2xl font-bold -mt-10 border-4 border-black">
-                  {creator.avatar}
-                </div>
-                <div className="pt-2">
-                  <div className="flex items-center space-x-2">
-                    <h1 className="text-2xl font-bold text-white">{creator.name}</h1>
-                    {creator.isVerified && <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
-                      <span className="text-white text-xs">✓</span>
-                    </div>}
-                  </div>
-                  <p className="text-gray-400 mt-1">{creator.posts} posts</p>
-                </div>
-              </div>
-              <Button 
-                onClick={() => setShowMembershipModal(true)}
-                className="bg-white text-black hover:bg-gray-100 px-6"
-              >
-                Join now
-              </Button>
-            </div>
-
-            {/* Description */}
-            <div className="mt-4 max-w-3xl">
-              <p className="text-gray-300 leading-relaxed">{creator.description}</p>
-            </div>
-
-            {/* Stats */}
-            <div className="flex items-center space-x-6 mt-4">
-              <div className="text-sm">
-                <span className="font-semibold text-white">{creator.memberCount}</span>
-                <span className="text-gray-400 ml-1">paid members</span>
-              </div>
-              <div className="text-sm">
-                <span className="font-semibold text-white">{creator.posts}</span>
-                <span className="text-gray-400 ml-1">Posts</span>
-              </div>
-            </div>
-
-            {/* Become a Member Button */}
-            <div className="mt-6">
-              <Button 
-                onClick={() => setShowMembershipModal(true)}
-                className="bg-green-600 hover:bg-green-700 text-white px-8 py-2"
-              >
-                Become a member
-              </Button>
-            </div>
-
-            {/* Social Links */}
-            <div className="flex items-center space-x-4 mt-4">
-              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
-                📷
-              </Button>
-              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
-                🐦
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Navigation Tabs */}
-        <div className="border-b border-gray-800 px-6">
-          <div className="flex space-x-8">
-            {['Home', 'Posts', 'Collections', 'Chats', 'About'].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`py-3 px-1 border-b-2 transition-colors ${
-                  activeTab === tab
-                    ? 'border-green-500 text-white'
-                    : 'border-transparent text-gray-400 hover:text-white'
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Latest Post Section */}
-        <div className="px-6 py-6">
-          <h2 className="text-xl font-semibold mb-6">Latest post</h2>
-          
-          {/* Featured Post */}
-          {posts[0] && (
-            <div className="mb-8">
-              <div className="relative group cursor-pointer">
-                <div className="relative aspect-video rounded-lg overflow-hidden">
-                  <img 
-                    src={posts[0].thumbnail} 
-                    alt={posts[0].title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition-opacity"></div>
-                  <div className="absolute bottom-4 right-4 bg-black bg-opacity-70 text-white text-sm px-2 py-1 rounded">
-                    {posts[0].duration}
-                  </div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Play className="w-6 h-6 text-black ml-1" />
-                    </div>
-                  </div>
-                  {posts[0].isPinned && (
-                    <div className="absolute top-4 left-4 bg-blue-600 text-white text-xs px-2 py-1 rounded">
-                      Pinned
-                    </div>
-                  )}
-                </div>
-                
-                <div className="mt-4">
-                  <h3 className="text-lg font-semibold text-white mb-2">{posts[0].title}</h3>
-                  <div className="flex items-center space-x-4 text-sm text-gray-400">
-                    <span>{posts[0].timeAgo}</span>
-                    <div className="flex items-center space-x-1">
-                      <Heart className="w-4 h-4" />
-                      <span>{posts[0].likes}</span>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <MessageCircle className="w-4 h-4" />
-                      <span>{posts[0].comments}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Recent Posts Grid */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 flex items-center justify-between">
-              Recent posts
-              <div className="flex items-center space-x-2">
-                <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
-                  ←
-                </Button>
-                <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
-                  →
-                </Button>
-              </div>
-            </h3>
+            <h2 className="text-xl font-semibold mb-6">Latest post</h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {posts.slice(1).map((post) => (
-                <div key={post.id} className="group cursor-pointer">
-                  <div className="relative aspect-video rounded-lg overflow-hidden mb-3">
+            {/* Featured Post */}
+            {posts[0] && (
+              <div className="mb-8">
+                <div className="relative group cursor-pointer">
+                  <div className="relative aspect-video rounded-lg overflow-hidden">
                     <img 
-                      src={post.thumbnail} 
-                      alt={post.title}
-                      className={`w-full h-full object-cover transition-all ${
-                        post.isLocked ? 'blur-sm' : 'group-hover:scale-105'
-                      }`}
+                      src={posts[0].thumbnail} 
+                      alt={posts[0].title}
+                      className="w-full h-full object-cover"
                     />
-                    {post.isLocked ? (
-                      <>
-                        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-center">
-                            <Lock className="w-8 h-8 text-white mx-auto mb-2" />
-                            <p className="text-white text-sm">Locked</p>
-                          </div>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">
-                          {post.duration}
-                        </div>
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                          <div className="w-12 h-12 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
-                            <Play className="w-4 h-4 text-black ml-0.5" />
-                          </div>
-                        </div>
-                      </>
+                    <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition-opacity"></div>
+                    <div className="absolute bottom-4 right-4 bg-black bg-opacity-70 text-white text-sm px-2 py-1 rounded">
+                      {posts[0].duration}
+                    </div>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <Play className="w-6 h-6 text-black ml-1" />
+                      </div>
+                    </div>
+                    {posts[0].isPinned && (
+                      <div className="absolute top-4 left-4 bg-blue-600 text-white text-xs px-2 py-1 rounded">
+                        Pinned
+                      </div>
                     )}
                   </div>
                   
-                  <h4 className="font-medium text-white mb-1 group-hover:text-gray-300 transition-colors line-clamp-2">
-                    {post.title}
-                  </h4>
-                  <div className="flex items-center space-x-3 text-xs text-gray-400">
-                    <span>{post.timeAgo}</span>
-                    <div className="flex items-center space-x-1">
-                      <Heart className="w-3 h-3" />
-                      <span>{post.likes}</span>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <MessageCircle className="w-3 h-3" />
-                      <span>{post.comments}</span>
+                  <div className="mt-4">
+                    <h3 className="text-lg font-semibold text-white mb-2">{posts[0].title}</h3>
+                    <div className="flex items-center space-x-4 text-sm text-gray-400">
+                      <span>{posts[0].timeAgo}</span>
+                      <div className="flex items-center space-x-1">
+                        <Heart className="w-4 h-4" />
+                        <span>{posts[0].likes}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <MessageCircle className="w-4 h-4" />
+                        <span>{posts[0].comments}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              ))}
+              </div>
+            )}
+
+            {/* Recent Posts Grid */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4 flex items-center justify-between">
+                Recent posts
+                <div className="flex items-center space-x-2">
+                  <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
+                    ←
+                  </Button>
+                  <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
+                    →
+                  </Button>
+                </div>
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {posts.slice(1).map((post) => (
+                  <div key={post.id} className="group cursor-pointer">
+                    <div className="relative aspect-video rounded-lg overflow-hidden mb-3">
+                      <img 
+                        src={post.thumbnail} 
+                        alt={post.title}
+                        className={`w-full h-full object-cover transition-all ${
+                          post.isLocked ? 'blur-sm' : 'group-hover:scale-105'
+                        }`}
+                      />
+                      {post.isLocked ? (
+                        <>
+                          <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="text-center">
+                              <Lock className="w-8 h-8 text-white mx-auto mb-2" />
+                              <p className="text-white text-sm">Locked</p>
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">
+                            {post.duration}
+                          </div>
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div className="w-12 h-12 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
+                              <Play className="w-4 h-4 text-black ml-0.5" />
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    
+                    <h4 className="font-medium text-white mb-1 group-hover:text-gray-300 transition-colors line-clamp-2">
+                      {post.title}
+                    </h4>
+                    <div className="flex items-center space-x-3 text-xs text-gray-400">
+                      <span>{post.timeAgo}</span>
+                      <div className="flex items-center space-x-1">
+                        <Heart className="w-3 h-3" />
+                        <span>{post.likes}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <MessageCircle className="w-3 h-3" />
+                        <span>{post.comments}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Membership Modal */}
-      <MembershipModal 
-        open={showMembershipModal}
-        onOpenChange={setShowMembershipModal}
-        creatorName={creator.name}
-      />
-    </div>
+        {/* Membership Modal */}
+        <MembershipModal 
+          open={showMembershipModal}
+          onOpenChange={setShowMembershipModal}
+          creatorName={creator.name}
+        />
+      </div>
+    </SidebarProvider>
   );
 }
