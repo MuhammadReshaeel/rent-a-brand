@@ -128,7 +128,11 @@ export function DashboardContent() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {creators.map((creator, index) => (
-              <div key={index} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-900 transition-colors cursor-pointer">
+              <div 
+                key={index} 
+                className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-900 transition-colors cursor-pointer"
+                onClick={() => window.location.href = `/creator/${creator.name.toLowerCase().replace(/\s+/g, '-')}`}
+              >
                 <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-pink-500 rounded-lg flex items-center justify-center text-white font-bold">
                   {creator.avatar}
                 </div>

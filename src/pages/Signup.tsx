@@ -350,67 +350,63 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col">
-      {/* Header with logo */}
+    <div className="min-h-screen bg-black text-white flex">
+      {/* Left Side - Form */}
+      <div className="w-7/10 flex items-center justify-center px-8 py-12 relative">
+        {/* Back Button */}
+        {currentStep > 1 && (
+          <button
+            onClick={handleBack}
+            className="absolute top-8 left-8 p-2 text-gray-400 hover:text-white transition-colors"
+          >
+            <ArrowLeft size={24} />
+          </button>
+        )}
+        
+        {renderStep()}
+      </div>
 
-      <div className="flex flex-1">
-        {/* Left Side - Form */}
-        <div className="w-7/10 flex items-center justify-center px-8 py-12 relative">
-          {/* Back Button */}
-          {currentStep > 1 && (
-            <button
-              onClick={handleBack}
-              className="absolute top-8 left-8 p-2 text-gray-400 hover:text-white transition-colors"
-            >
-              <ArrowLeft size={24} />
-            </button>
-          )}
-          
-          {renderStep()}
-        </div>
-
-        {/* Right Side - Features Carousel */}
-        <div className="hidden md:flex w-3/10 bg-gradient-to-br from-purple-900 via-blue-900 to-purple-800 items-center justify-center relative overflow-hidden">
-          <div className="embla w-full h-full" ref={emblaRef}>
-            <div className="embla__container h-full flex">
-              {featureSlides.map((slide, index) => (
-                <div className="embla__slide flex-shrink-0 w-full h-full flex flex-col items-center justify-center text-center p-8" key={index}>
-                  <div className="relative mb-6">
-                    <div className="absolute top-2 left-2 w-64 h-72 bg-white/10 rounded-2xl transform rotate-3"></div>
-                    <div className="relative w-64 h-72 bg-white rounded-2xl p-4 shadow-2xl flex flex-col">
-                      <div className="w-full h-24 bg-gradient-to-r from-orange-400 via-pink-500 to-purple-600 rounded-xl mb-3 flex items-center justify-center flex-shrink-0">
-                        <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                          <div className="w-6 h-6 bg-white rounded-full"></div>
-                        </div>
-                      </div>
-                      
-                      <div className="text-left flex-1 flex flex-col">
-                        <div className="flex items-baseline mb-3">
-                          <span className="text-2xl font-bold text-black">{slide.cardContent.price}</span>
-                          <span className="text-gray-600 ml-1 text-sm">{slide.cardContent.period}</span>
-                        </div>
-                        
-                        <div className="space-y-1.5 mb-4 flex-1">
-                          {slide.cardContent.features.slice(0, 4).map((feature, featureIndex) => (
-                            <div key={featureIndex} className="flex items-center text-gray-600">
-                              <div className="w-3 h-3 bg-green-500 rounded-full mr-2 flex-shrink-0"></div>
-                              <span className="text-xs leading-tight">{feature}</span>
-                            </div>
-                          ))}
-                        </div>
-                        
-                        <Button className="w-full bg-black text-white rounded-lg py-2 text-sm font-medium mt-auto">
-                          Join now
-                        </Button>
+      {/* Right Side - Features Carousel */}
+      <div className="hidden md:flex w-3/10 bg-gradient-to-br from-purple-900 via-blue-900 to-purple-800 items-center justify-center relative overflow-hidden">
+        <div className="embla w-full h-full" ref={emblaRef}>
+          <div className="embla__container h-full flex">
+            {featureSlides.map((slide, index) => (
+              <div className="embla__slide flex-shrink-0 w-full h-full flex flex-col items-center justify-center text-center p-8" key={index}>
+                <div className="relative mb-6">
+                  <div className="absolute top-2 left-2 w-64 h-72 bg-white/10 rounded-2xl transform rotate-3"></div>
+                  <div className="relative w-64 h-72 bg-white rounded-2xl p-4 shadow-2xl flex flex-col">
+                    <div className="w-full h-24 bg-gradient-to-r from-orange-400 via-pink-500 to-purple-600 rounded-xl mb-3 flex items-center justify-center flex-shrink-0">
+                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                        <div className="w-6 h-6 bg-white rounded-full"></div>
                       </div>
                     </div>
+                    
+                    <div className="text-left flex-1 flex flex-col">
+                      <div className="flex items-baseline mb-3">
+                        <span className="text-2xl font-bold text-black">{slide.cardContent.price}</span>
+                        <span className="text-gray-600 ml-1 text-sm">{slide.cardContent.period}</span>
+                      </div>
+                      
+                      <div className="space-y-1.5 mb-4 flex-1">
+                        {slide.cardContent.features.slice(0, 4).map((feature, featureIndex) => (
+                          <div key={featureIndex} className="flex items-center text-gray-600">
+                            <div className="w-3 h-3 bg-green-500 rounded-full mr-2 flex-shrink-0"></div>
+                            <span className="text-xs leading-tight">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+                      
+                      <Button className="w-full bg-black text-white rounded-lg py-2 text-sm font-medium mt-auto">
+                        Join now
+                      </Button>
+                    </div>
                   </div>
-                  
-                  <h3 className="text-xl font-bold mb-2 text-white">{slide.title}</h3>
-                  <p className="text-gray-300 text-sm max-w-xs leading-relaxed">{slide.description}</p>
                 </div>
-              ))}
-            </div>
+                
+                <h3 className="text-xl font-bold mb-2 text-white">{slide.title}</h3>
+                <p className="text-gray-300 text-sm max-w-xs leading-relaxed">{slide.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
