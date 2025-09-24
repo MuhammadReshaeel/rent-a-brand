@@ -41,7 +41,7 @@ export function MembershipModal({ open, onOpenChange, creatorName }: MembershipM
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogOverlay className="bg-black/80 backdrop-blur-sm" />
-      <DialogContent className="max-w-4xl bg-gray-900 text-white border border-gray-700 p-0 overflow-hidden">
+      <DialogContent className="max-w-4xl bg-gray-900 text-white border border-gray-700 p-0 max-h-[90vh] overflow-y-auto overflow-x-hidden">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-700">
           <div className="flex items-center space-x-3">

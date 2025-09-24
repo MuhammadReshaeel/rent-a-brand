@@ -103,7 +103,7 @@ export default function CreatorProfile() {
   return (
     <div className="min-h-screen bg-black text-white flex">
       {/* Left Sidebar */}
-      <div className="w-64 bg-gray-900 border-r border-gray-800 flex flex-col">
+      <div className="w-64 bg-gray-900 border-r border-gray-800 flex flex-col fixed h-full">
         {/* Logo */}
         <div className="p-4 border-b border-gray-800">
           <div className="flex items-center space-x-2">
@@ -175,7 +175,7 @@ export default function CreatorProfile() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1">
+      <div className="flex-1 ml-64">
         {/* Email Verification Banner */}
         <div className="bg-gray-900 px-6 py-3 flex items-center justify-between border-b border-gray-800">
           <span className="text-sm text-gray-300">Please verify your email address</span>
