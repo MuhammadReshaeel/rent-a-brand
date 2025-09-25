@@ -90,15 +90,15 @@ export default function CreatorProfile() {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen bg-black text-white flex">
+      <div className="min-h-screen bg-black text-white flex flex-col lg:flex-row">
         <AppSidebar />
 
         {/* Main Content */}
         <div className="flex-1">
           {/* Email Verification Banner */}
-          <div className="bg-gray-900 px-6 py-3 flex items-center justify-between border-b border-gray-800">
-            <span className="text-sm text-gray-300">Please verify your email address</span>
-            <Button variant="outline" size="sm" className="bg-white text-black border-white hover:bg-gray-100">
+          <div className="bg-gray-900 px-3 sm:px-6 py-2 sm:py-3 flex items-center justify-between border-b border-gray-800">
+            <span className="text-xs sm:text-sm text-gray-300">Please verify your email address</span>
+            <Button variant="outline" size="sm" className="bg-white text-black border-white hover:bg-gray-100 text-xs sm:text-sm px-2 sm:px-3">
               Verify email
             </Button>
           </div>
@@ -107,7 +107,7 @@ export default function CreatorProfile() {
           <div className="relative">
             {/* Cover Image */}
             <div 
-              className="h-64 bg-gradient-to-r from-purple-900 via-blue-900 to-purple-800 relative"
+              className="h-48 sm:h-64 bg-gradient-to-r from-purple-900 via-blue-900 to-purple-800 relative"
               style={{
                 backgroundImage: `url(${creator.coverImage})`,
                 backgroundSize: 'cover',
@@ -117,36 +117,36 @@ export default function CreatorProfile() {
               <div className="absolute inset-0 bg-black bg-opacity-40"></div>
               
               {/* Header Actions */}
-              <div className="absolute top-4 right-4 flex items-center space-x-3">
-                <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
-                  <Share className="w-4 h-4" />
+              <div className="absolute top-2 right-2 sm:top-4 sm:right-4 flex items-center space-x-2 sm:space-x-3">
+                <Button variant="ghost" size="sm" className="text-white hover:bg-white/20 p-1 sm:p-2">
+                  <Share className="w-3 h-3 sm:w-4 sm:h-4" />
                 </Button>
-                <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
-                  <MoreHorizontal className="w-4 h-4" />
+                <Button variant="ghost" size="sm" className="text-white hover:bg-white/20 p-1 sm:p-2">
+                  <MoreHorizontal className="w-3 h-3 sm:w-4 sm:h-4" />
                 </Button>
               </div>
             </div>
 
             {/* Creator Info */}
-            <div className="px-6 py-6">
-              <div className="flex items-start justify-between">
-                <div className="flex items-start space-x-4">
-                  <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-pink-500 rounded-2xl flex items-center justify-center text-white text-2xl font-bold -mt-10 border-4 border-black">
+            <div className="px-3 sm:px-6 py-4 sm:py-6">
+              <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
+                <div className="flex items-start space-x-3 sm:space-x-4 w-full sm:w-auto">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-orange-400 to-pink-500 rounded-xl sm:rounded-2xl flex items-center justify-center text-white text-lg sm:text-2xl font-bold -mt-8 sm:-mt-10 border-4 border-black flex-shrink-0">
                     {creator.avatar}
                   </div>
-                  <div className="pt-2">
+                  <div className="pt-1 sm:pt-2 flex-1">
                     <div className="flex items-center space-x-2">
-                      <h1 className="text-2xl font-bold text-white">{creator.name}</h1>
-                      {creator.isVerified && <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                      <h1 className="text-xl sm:text-2xl font-bold text-white">{creator.name}</h1>
+                      {creator.isVerified && <div className="w-4 h-4 sm:w-5 sm:h-5 bg-blue-500 rounded-full flex items-center justify-center">
                         <span className="text-white text-xs">✓</span>
                       </div>}
                     </div>
-                    <p className="text-gray-400 mt-1">{creator.posts} posts</p>
+                    <p className="text-gray-400 mt-1 text-sm sm:text-base">{creator.posts} posts</p>
                   </div>
                 </div>
                 <Button 
                   onClick={() => setShowMembershipModal(true)}
-                  className="bg-white text-black hover:bg-gray-100 px-6"
+                  className="bg-white text-black hover:bg-gray-100 px-4 sm:px-6 text-sm sm:text-base w-full sm:w-auto"
                 >
                   Join now
                 </Button>
@@ -192,13 +192,13 @@ export default function CreatorProfile() {
           </div>
 
           {/* Navigation Tabs */}
-          <div className="border-b border-gray-800 px-6">
-            <div className="flex space-x-8">
+          <div className="border-b border-gray-800 px-3 sm:px-6">
+            <div className="flex space-x-4 sm:space-x-8 overflow-x-auto scrollbar-hide">
               {['Home', 'Posts', 'Collections', 'Chats', 'About'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`py-3 px-1 border-b-2 transition-colors ${
+                  className={`py-2 sm:py-3 px-1 border-b-2 transition-colors whitespace-nowrap text-sm sm:text-base ${
                     activeTab === tab
                       ? 'border-green-500 text-white'
                       : 'border-transparent text-gray-400 hover:text-white'
@@ -211,8 +211,8 @@ export default function CreatorProfile() {
           </div>
 
           {/* Latest Post Section */}
-          <div className="px-6 py-6">
-            <h2 className="text-xl font-semibold mb-6">Latest post</h2>
+          <div className="px-3 sm:px-6 py-4 sm:py-6">
+            <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6">Latest post</h2>
             
             {/* Featured Post */}
             {posts[0] && (
@@ -272,7 +272,7 @@ export default function CreatorProfile() {
                 </div>
               </h3>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {posts.slice(1).map((post) => (
                   <div key={post.id} className="group cursor-pointer">
                     <div className="relative aspect-video rounded-lg overflow-hidden mb-3">

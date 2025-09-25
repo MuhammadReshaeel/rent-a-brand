@@ -6,12 +6,16 @@ import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Eye, EyeOff, Check } from 'lucide-react';
+import { authAPI, userAPI } from '@/lib/api';
+import { useToast } from '@/hooks/use-toast';
 
 const Signup = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 4000 })]);
   const [currentStep, setCurrentStep] = useState(1);
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   
   // Form data
   const [formData, setFormData] = useState({
@@ -53,13 +57,52 @@ const Signup = () => {
     },
   ];
 
-  const handleNext = () => {
-    if (currentStep < 4) {
-      setCurrentStep(currentStep + 1);
-    } else {
-      // Final step - log data and redirect
-      console.log('Signup completed with data:', formData);
-      navigate(`/c/${formData.pageUrl}`);
+  const handleNext = async () => {
+    if (isLoading) return;
+    
+    setIsLoading(true);
+    
+    try {
+      if (currentStep === 2) {
+        // Register user after step 2
+        await authAPI.register({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password
+        });
+        toast({
+          title: "Account created successfully!",
+          description: "Please complete your profile.",
+        });
+        setCurrentStep(3);
+      } else if (currentStep === 3) {
+        // Update user with creator name and adult content preference
+        await userAPI.update({
+          creatorName: formData.creatorName,
+          is18Plus: formData.isAdultContent
+        });
+        setCurrentStep(4);
+      } else if (currentStep === 4) {
+        // Update user with page name
+        await userAPI.update({
+          pageName: formData.pageUrl
+        });
+        toast({
+          title: "Profile completed!",
+          description: "Welcome to your creator dashboard.",
+        });
+        navigate(`/c/${formData.pageUrl}`);
+      } else {
+        setCurrentStep(currentStep + 1);
+      }
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.response?.data?.message || "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -97,10 +140,10 @@ const Signup = () => {
     switch (currentStep) {
       case 1:
         return (
-          <div className="w-full max-w-md">
+          <div className="w-full max-w-md mx-auto">
             <div className="mb-8">
-              <h1 className="text-4xl font-bold mb-4">Start creating on Patreon</h1>
-              <p className="text-gray-300 text-lg">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">Start creating on Patreon</h1>
+              <p className="text-gray-300 text-base sm:text-lg">
                 Join 250,000+ creators building fandoms, earning from memberships, and selling digital products.
               </p>
             </div>
@@ -157,10 +200,10 @@ const Signup = () => {
 
               <Button 
                 onClick={handleNext}
-                disabled={!isStepValid()}
+                disabled={!isStepValid() || isLoading}
                 className="w-full bg-gray-600 hover:bg-gray-500 disabled:bg-gray-800 disabled:text-gray-600 text-white py-3 h-auto rounded-lg font-medium shadow-sm"
               >
-                Continue
+                {isLoading ? 'Loading...' : 'Continue'}
               </Button>
 
               <div className="text-center mt-6">
@@ -177,15 +220,6 @@ const Signup = () => {
               <a href="#" className="underline hover:text-gray-400">Privacy Policy</a>
             </div>
 
-            <div className="text-center mt-8">
-              <Button 
-                variant="outline" 
-                onClick={handleJoinAsFan}
-                className="bg-transparent border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white px-6 py-2 rounded-full"
-              >
-                Not a creator? Join as a fan
-              </Button>
-            </div>
           </div>
         );
 
@@ -234,10 +268,10 @@ const Signup = () => {
 
               <Button 
                 onClick={handleNext}
-                disabled={!isStepValid()}
+                disabled={!isStepValid() || isLoading}
                 className="w-full bg-gray-600 hover:bg-gray-500 disabled:bg-gray-800 disabled:text-gray-600 text-white py-3 h-auto rounded-lg font-medium shadow-sm"
               >
-                Continue
+                {isLoading ? 'Creating account...' : 'Continue'}
               </Button>
             </div>
           </div>
@@ -276,22 +310,13 @@ const Signup = () => {
 
               <Button 
                 onClick={handleNext}
-                disabled={!isStepValid()}
+                disabled={!isStepValid() || isLoading}
                 className="w-full bg-gray-600 hover:bg-gray-500 disabled:bg-gray-800 disabled:text-gray-600 text-white py-3 h-auto rounded-lg font-medium shadow-sm"
               >
-                Continue
+                {isLoading ? 'Updating...' : 'Continue'}
               </Button>
             </div>
 
-            <div className="text-center mt-8">
-              <Button 
-                variant="outline" 
-                onClick={handleJoinAsFan}
-                className="bg-transparent border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white px-6 py-2 rounded-full"
-              >
-                Not a creator? Join as a fan
-              </Button>
-            </div>
           </div>
         );
 
@@ -326,10 +351,10 @@ const Signup = () => {
 
               <Button 
                 onClick={handleNext}
-                disabled={!isStepValid()}
-                className="w-full bg-white text-black hover:bg-gray-100 py-3 h-auto rounded-lg font-medium shadow-sm"
+                disabled={!isStepValid() || isLoading}
+                className="w-full bg-white text-black hover:bg-gray-100 disabled:bg-gray-600 disabled:text-gray-400 py-3 h-auto rounded-lg font-medium shadow-sm"
               >
-                Continue
+                {isLoading ? 'Finishing...' : 'Continue'}
               </Button>
             </div>
 
@@ -350,14 +375,14 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex">
+    <div className="min-h-screen bg-black text-white flex flex-col lg:flex-row">
       {/* Left Side - Form */}
-      <div className="w-7/10 flex items-center justify-center px-8 py-12 relative">
+      <div className="w-full lg:w-7/10 flex items-center justify-center px-4 sm:px-8 py-6 lg:py-12 relative">
         {/* Back Button */}
         {currentStep > 1 && (
           <button
             onClick={handleBack}
-            className="absolute top-8 left-8 p-2 text-gray-400 hover:text-white transition-colors"
+            className="absolute top-4 left-4 sm:top-8 sm:left-8 p-2 text-gray-400 hover:text-white transition-colors z-10"
           >
             <ArrowLeft size={24} />
           </button>
@@ -367,7 +392,7 @@ const Signup = () => {
       </div>
 
       {/* Right Side - Features Carousel */}
-      <div className="hidden md:flex w-3/10 bg-gradient-to-br from-purple-900 via-blue-900 to-purple-800 items-center justify-center relative overflow-hidden">
+      <div className="hidden lg:flex w-full lg:w-3/10 bg-gradient-to-br from-purple-900 via-blue-900 to-purple-800 items-center justify-center relative overflow-hidden">
         <div className="embla w-full h-full" ref={emblaRef}>
           <div className="embla__container h-full flex">
             {featureSlides.map((slide, index) => (
